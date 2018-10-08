@@ -1,0 +1,13 @@
+{
+  "presets": [
+    ["env", {
+      "targets": {
+        "node": true
+      }
+    }]
+	],
+	"plugins": [
+		["@babel/plugin-proposal-object-rest-spread"],
+		["@babel/plugin-proposal-decorators", { "legacy": true }]
+	]
+}
