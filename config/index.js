@@ -12,16 +12,20 @@ const JWT = {
 
 const USER = {
 	defaultUsername: 'collin',
-	defaultPassword: 'collin'
+	defaultPassword: 'collin',
+    jwtTokenSecret: 'collin'
 }
 
 const APP = {
-	port: '3000'
+	port: '3000',
+	root_path: 'api'
 }
 
 const Mongo = {
 	uri: 'mongodb://192.168.128.134:27017/my_blog',
 }
+
+
 
 export default {
 	REDIS,
