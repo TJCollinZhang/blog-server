@@ -5,6 +5,7 @@ import { resolve } from 'path'
 import glob from 'glob'
 import R from 'ramda'
 import _ from 'lodash'
+import {resErr} from "../utils/resHandle";
 
 export let routersMap = new Map()
 export const symbolPrefix = Symbol('prefix')
@@ -89,7 +90,14 @@ export const required = rules => convert(async (ctx, next) => {
 
   passRules(rules)
 
-  if (errors.length) ctx.throw(412, `${errors.join(', ')} 参数缺失`)
+    if (errors.length) {
+        ctx.throw(413, `${errors.join(', ')} 参数缺失`)
+        // ctx.throw(500)
+    }
+    // if (errors.length) {
+    //     resErr({ctx: ctx, message: '插入标签失败', err: e})
+    // }
+
 
   await next()
 })
