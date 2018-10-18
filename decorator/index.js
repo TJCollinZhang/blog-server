@@ -91,12 +91,11 @@ export const required = rules => convert(async (ctx, next) => {
   passRules(rules)
 
     if (errors.length) {
-        ctx.throw(413, `${errors.join(', ')} 参数缺失`)
-        // ctx.throw(500)
+        // ctx.throw(400, `${errors.join(', ')} 参数缺失`)
+        ctx.status = 400
+        ctx.body = `${errors.join(', ')} 参数缺失`
+        return false
     }
-    // if (errors.length) {
-    //     resErr({ctx: ctx, message: '插入标签失败', err: e})
-    // }
 
 
   await next()

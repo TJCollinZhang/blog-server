@@ -27,9 +27,9 @@ export default async (ctx, next) => {
     // };
 
 	let token = ctx.request.headers['authorization'];
-	if( !ctx.request.url.indexOf('/login') && verifyToken(token) ) {
-		ctx.throw(401,{ code: -2, message: '身份验证失败！'});
-	}
+		if( !ctx.request.url.indexOf('/login') && verifyToken(token) ) {
+			ctx.throw(401,{ code: -2, message: '身份验证失败！'});
+		}
 
 	await next();
 
