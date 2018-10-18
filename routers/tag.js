@@ -8,7 +8,7 @@ import {insertTag, getTagList} from '../controllers/tag'
 @controller(`${config.APP.root_path}/tag`)
 export class TagController {
     @post('saveTag')
-    @required({body: ['tagName', 'description']})
+    @required({data: ['tagName', 'description']})
     async saveTag(ctx, next) {
         let {tagName, description} = ctx.request.body
         try {

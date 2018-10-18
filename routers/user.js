@@ -29,7 +29,7 @@ export class userController {
 	// }
 	// 登录
 	@post('login')
-	@required({body: ['username', 'password']})
+	@required({data: ['username', 'password']})
 	async Login (ctx, next) {
 		const { username, password } = ctx.request.body
 		try {

@@ -84,7 +84,7 @@ export const required = rules => convert(async (ctx, next) => {
 
   const passRules = R.forEachObjIndexed(
     (value, key) => {
-      errors = R.filter(i => !R.has(i, ctx.request[key]))(value)
+      errors = R.filter(i => !R.has(i, ctx.request.body[key]))(value)
     }
   )
 
