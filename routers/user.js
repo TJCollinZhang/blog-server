@@ -31,7 +31,7 @@ export class userController {
 	@post('login')
 	@required({data: ['username', 'password']})
 	async Login (ctx, next) {
-		const { username, password } = ctx.request.body
+		const { username, password } = ctx.request.body.data
 		try {
 			const user = await findOne(username)
 			if (user) {

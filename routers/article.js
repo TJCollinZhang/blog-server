@@ -5,7 +5,7 @@ import config from '../config'
 
 @controller(`${config.APP.root_path}/article`)
 export class articleController {
-    @post('saveArticle')
+    @post('article')
     @required({body: ['title', 'abstract', 'tags', 'content']})
     async saveArticle(ctx, next) {
         const {title, abstract, tags, content} = ctx.request.body

@@ -3,6 +3,7 @@ import Router from 'koa-router'
 import multer from 'koa-multer'
 import path from 'path'
 import serve from 'koa-static'
+import cors from 'koa2-cors'
 const app = new Koa();
 
 let storage = multer.diskStorage({
@@ -14,6 +15,16 @@ let storage = multer.diskStorage({
 });
 
 let upload = multer({ storage: storage});
+
+app.use(cors({
+	origin: function () {
+		return "http://localhost:8080"
+	},
+	'Access-Control-Allow-Credentials': 'true',
+	credentials: true,
+	'Access-Control-Allow-Headers': 'Authorization, Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With',
+	'Access-Control-Allow-Methods': 'PUT,PATCH,POST,GET,DELETE,OPTIONS'
+}))
 
 app.use(serve(__dirname+'/upload',{extensions: ['png','jpg']}));
 let router = new Router();

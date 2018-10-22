@@ -1,6 +1,8 @@
 'use strict'
 // 中间件集合
 import bodyParser from'koa-bodyparser' // post body 解析
+import serve from 'koa-static'
+import path from 'path'
 import helmet from 'koa-helmet' // 安全相关
 // import cors from 'koa-cors'
 import Interceptor from './interceptors'
@@ -19,6 +21,10 @@ const middlewares = (app) => {
 		formLimit: '10mb',
 		textLimit: '10mb'
 	}))
+	console.log(path.resolve("."+'/upload'))
+
+	app.use(serve(path.resolve("."+'/upload'),{extensions: ['png','jpg']}));
+
 
 	app.use(async (ctx, next) => {
 		try {
@@ -30,6 +36,7 @@ const middlewares = (app) => {
 			ctx.body = { code: 0, message: '无效的api请求'}
 		}
 	})
+
 }
 
 export default middlewares
