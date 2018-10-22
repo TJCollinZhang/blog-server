@@ -21,8 +21,10 @@ export const deleteProject = async (id) => {
 }
 
 export const getProjectListByPage = async (page) => {
-	let res = await Project.find()
-	let total = res.length
-	let res_limit = await Project.find().sort({"_id": 1}).skip(10 * (page - 1)).limit(10)
+	let res_limit = await Project.find()
+	let total = res_limit.length
+	if (page > 0) {
+		res_limit = await Project.find().sort({"_id": 1}).skip(10 * (page - 1)).limit(10)
+	}
 	return {total: total, res_limit: res_limit}
 }

@@ -20,9 +20,9 @@ export class ProjectController {
 	}
 
 	@get('project_list')
-	async getProjectListByPage(ctx, next) {
+	async selectProjectListByPage(ctx, next) {
 		try {
-			let page = ctx.query.page || 1
+			let page = ctx.query.page || 0
 			let res = await getProjectListByPage(page)
 			resSuccess({ctx: ctx, message: '查询标签列表成功', result: res})
 
@@ -32,7 +32,7 @@ export class ProjectController {
 	}
 
 	@del('project')
-	async deleteProject(ctx, next) {
+	async delProject(ctx, next) {
 		try {
 			let projectId = ctx.query.projectId
 			if (projectId) {

@@ -22,7 +22,7 @@ export class TagController {
 	@get('tag_list')
 	async getTags(ctx, next) {
 		try {
-			const page = ctx.query.page || 1
+			const page = ctx.query.page || 0
 			let res = await getTagListByPage(page)
 			resSuccess({ctx: ctx, message: '查询标签列表成功', result: res})
 		} catch (e) {

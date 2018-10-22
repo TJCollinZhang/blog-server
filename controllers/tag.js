@@ -19,9 +19,11 @@ export const insertTag = async (tag) => {
 
 export const getTagListByPage = async (page) => {
 	// let res = await Tag.find().sort({"ID":1}).skip(10).limit(10)
-	let res = await Tag.find()
-	let total = res.length
-	let res_limit = await Tag.find().sort({"_id": 1}).skip(10 * (page - 1)).limit(10)
+	let res_limit = await Tag.find()
+	let total = res_limit.length
+	if (page > 0) {
+		res_limit = await Tag.find().sort({"_id": 1}).skip(10 * (page - 1)).limit(10)
+	}
 	return {total: total, res_limit: res_limit}
 }
 
