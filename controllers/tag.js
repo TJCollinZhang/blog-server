@@ -17,13 +17,18 @@ export const insertTag = async (tag) => {
 	}
 }
 
-export const getTagListByPage = async (page) => {
-	// let res = await Tag.find().sort({"ID":1}).skip(10).limit(10)
-	let res_limit = await Tag.find()
-	let total = res_limit.length
-	if (page > 0) {
-		res_limit = await Tag.find().sort({"_id": 1}).skip(10 * (page - 1)).limit(10)
+export const getTagListByPage = async (page = null) => {
+	let pipelineArr = [
+		{ $skip : 0 }
+	]
+	if (page) {
+		pipelineArr.push(
+			{ $skip : 10 * (page - 1) },
+			{ $limit : 10 }
+		)
 	}
+	let res_limit = await Tag.aggregate(pipelineArr)
+	let total = await Tag.countDocuments()
 	return {total: total, res_limit: res_limit}
 }
 

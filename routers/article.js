@@ -65,4 +65,16 @@ export class articleController {
 			resErr({ctx: ctx, message: '插入文章失败', err: e})
 		}
 	}
+
+	@put('article')
+	@required({body: ['_id','title', 'abstract', 'tags', 'content']})
+	async modifyArticle(ctx, next) {
+		const {_id, title, abstract, tags, content} = ctx.request.body
+		try {
+			let res = await updateArticle({_id, title, abstract, tags, content})
+			resSuccess({ctx: ctx, message: '修改文章成功', result: res})
+		} catch (e) {
+			resErr({ctx: ctx, message: '修改文章失败', err: e})
+		}
+	}
 }

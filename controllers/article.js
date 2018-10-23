@@ -16,20 +16,35 @@ export const updateArticle = async (article) => {
 }
 
 export const getArticleById = async (articleId) => {
-	return await Article.findOne({_id: articleId})
+	return await Article.findById(articleId,'-updatedAt')
 }
 
 export const getArticleListByPage = async (page) => {
-	let res_limit = await Article.find()
-	let total = res_limit.length
+	// let res_limit = await Article.find()
+	let pipelineArr = [
+		{
+			$sort: {
+				updatedAt: -1
+			}
+		},
+		{
+			$project: {
+				title: 1,
+				_id: 1,
+				abstract: 1,
+				tags: 1,
+				updatedAt: {$dateToString: {format: "%Y-%m-%d %H:%M:%S", date: "$updatedAt"}}
+			}
+		}
+	]
 	if (page) {
-		res_limit = await Article.find().sort({"_id": 1}).skip(10 * (page - 1)).limit(10)
+		pipelineArr.push(
+			{ $skip : 10 * (page - 1) },
+			{ $limit : 10 }
+		)
 	}
-	res_limit.map((doc) => {
-		let createAt = doc._doc.createAt
-		doc._doc.createAt = createAt.toISOString().replace(/[A-Z]/g,' ').slice(0,-5)
-		return doc
-	})
+	let res_limit = await Article.aggregate(pipelineArr)
+	let total = await Article.countDocuments()
 	return {total: total, res_limit: res_limit}
 }
 
