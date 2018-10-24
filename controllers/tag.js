@@ -1,6 +1,8 @@
 'use strict'
 import Tag from '../models/tag'
+import Article from '../models/article'
 import {resErr, resSuccess} from '../utils/resHandle'
+import mongoose from "mongoose";
 
 export const insertTag = async (tag) => {
 	try {
@@ -33,6 +35,8 @@ export const getTagListByPage = async (page = null) => {
 }
 
 export const deleteTag = async (tagId) => {
+	await Article.updateMany({'tags':mongoose.Types.ObjectId(tagId)},{'$pull':{'tags':mongoose.Types.ObjectId(tagId)}})
+
 	return Tag.findByIdAndRemove(tagId)
 }
 

@@ -22,7 +22,7 @@ const APP = {
 }
 
 const Mongo = {
-	uri: 'mongodb://192.168.128.139:27017/my_blog',
+	uri: 'mongodb://192.168.128.140:27017/my_blog',
 }
 
 

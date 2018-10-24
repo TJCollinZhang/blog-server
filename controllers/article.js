@@ -28,11 +28,20 @@ export const getArticleListByPage = async (page) => {
 			}
 		},
 		{
+			$lookup: {
+				from: "tags",
+				localField: "tags",
+				foreignField: '_id',
+				as: 'tagArr'
+			}
+
+		},
+		{
 			$project: {
 				title: 1,
 				_id: 1,
 				abstract: 1,
-				tags: 1,
+				tagArr: 1,
 				updatedAt: {$dateToString: {format: "%Y-%m-%d %H:%M:%S", date: "$updatedAt"}}
 			}
 		}
