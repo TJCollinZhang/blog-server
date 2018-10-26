@@ -4,7 +4,7 @@ import bodyParser from'koa-bodyparser' // post body 解析
 import serve from 'koa-static'
 import path from 'path'
 import helmet from 'koa-helmet' // 安全相关
-// import cors from 'koa-cors'
+import cors from '@koa/cors'
 import Interceptor from './interceptors'
 
 const middlewares = (app) => {
@@ -14,6 +14,11 @@ const middlewares = (app) => {
 		const duration = new Date() - start
 		console.log(`${ctx.method} ${ctx.url} - ${duration}ms`)
 	})
+	app.use(cors({
+		allowHeaders: 'Authorization, Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With',
+		credentials: true,
+		keepHeadersOnError: true
+	}))
 	app.use(Interceptor)
 	app.use(helmet())
 	app.use(bodyParser({
@@ -21,6 +26,7 @@ const middlewares = (app) => {
 		formLimit: '10mb',
 		textLimit: '10mb'
 	}))
+
 	console.log(path.resolve("."+'/upload'))
 
 	app.use(serve(path.resolve("."+'/upload'),{extensions: ['png','jpg']}));

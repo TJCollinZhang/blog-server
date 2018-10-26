@@ -2,27 +2,33 @@
 import jwt from 'jsonwebtoken'
 import config from '../config'
 
-const createToken = (userName) => {
-	const token = jwt.sign({userName}, config.JWT.secret, {
-		expiresIn: config.JWT.expiresIn
-	});
-	return token
+//验证Auth
+const authToken = (req) => {
+	if (req.headers && req.headers.authorization) {
+		const auth = req.headers.authorization.split(' ')
+		if (Object.is(auth.length, 2) && Object.is(auth[0], 'Collin')) {
+			return auth[1]
+		}
+	}
 }
 
-const verifyToken = (token) => {
-	if (!token) {
-		return false
+const verifyToken = (req) => {
+	const token = authToken(req)
+	if (token) {
+		try {
+			let decodedToken = jwt.verify(token, config.JWT.secret)
+			if (decodedToken.exp > Math.floor(Date.now() / 1000)) {
+				return true
+			}
+		}
+		catch (err) {
+			console.log(err)
+			return false
+		}
 	}
-	try {
-		let result = jwt.verify(token, config.JWT.secret)
-		return result
-	}
-	catch(err) {
-		return false
-	}
+	return false
 }
 
 module.exports = {
-	createToken,
 	verifyToken
 }

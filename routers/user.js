@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken'
 import { controller, put, del, post, get, required } from '../decorator'
 import config from '../config'
 
-import { putComment, findOne } from '../controllers/user'
+import { findOne } from '../controllers/user'
 
 import {resErr, resSuccess} from '../utils/resHandle'
 
@@ -29,9 +29,9 @@ export class userController {
 	// }
 	// 登录
 	@post('login')
-	@required({data: ['username', 'password']})
+	@required({body: ['username', 'password']})
 	async Login (ctx, next) {
-		const { username, password } = ctx.request.body.data
+		const { username, password } = ctx.request.body
 		try {
 			const user = await findOne(username)
 			if (user) {
@@ -41,7 +41,7 @@ export class userController {
 						password: user.password,
 						exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 7)
 					}, config.USER.jwtTokenSecret)
-					resSuccess({ ctx, result: { token, lifeTime: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 7) }, message: "登陆成功" })
+					resSuccess({ ctx,  message: "登陆成功", result: { token: token, lifeTime: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 7), name: username } })
 				} else {
 					resErr({ ctx, message: "密码错误!" })
 				}
