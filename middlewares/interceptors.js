@@ -28,6 +28,7 @@ export default async (ctx, next) => {
     // };
 
 	// let token = ctx.request.headers['authorization'];
+	let verified = verifyToken(ctx.request)
 		if( !ctx.request.url.includes('login') && !Object.is(ctx.request.method, 'GET') && !verifyToken(ctx.request) ) {
 			ctx.throw(401,{ code: -2, message: '身份验证失败！'});
 			// ctx.status = 401

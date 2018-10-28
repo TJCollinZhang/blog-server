@@ -49,7 +49,7 @@ export class articleController {
 				resErr({ctx: ctx, message: '未获取到文章ID'})
 			}
 		} catch (e) {
-			resErr({ctx: ctx, message: '删除文章失败', err: e})
+			resErr({ctx: ctx, message: '获取文章失败', err: e})
 		}
 	}
 

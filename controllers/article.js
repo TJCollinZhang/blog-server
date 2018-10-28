@@ -1,5 +1,7 @@
 'use strict'
 import Article from '../models/article';
+import mongoose from 'mongoose'
+
 
 
 export const insertArticle = async (article) => {
@@ -16,7 +18,35 @@ export const updateArticle = async (article) => {
 }
 
 export const getArticleById = async (articleId) => {
-	return await Article.findById(articleId,'-updatedAt')
+	let id = mongoose.Types.ObjectId(articleId)
+	let pipelineArr = [
+		{
+			$match: {
+				_id: id
+			}
+		},
+		{
+			$lookup: {
+				from: "tags",
+				localField: "tags",
+				foreignField: '_id',
+				as: 'tagArr'
+			}
+
+		},
+		{
+			$project: {
+				title: 1,
+				_id: 1,
+				abstract: 1,
+				tagArr: 1,
+				tags: 1,
+				content: 1,
+				updatedAt: {$dateToString: {format: "%Y-%m-%d %H:%M:%S", date: "$updatedAt"}}
+			}
+		}
+	]
+	return await Article.aggregate(pipelineArr)
 }
 
 export const getArticleListByPage = async (page) => {
