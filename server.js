@@ -6,14 +6,13 @@ import { resolve } from 'path'
 // const redis = require('./redis');
 import middlewares from './middlewares'
 import Route from './decorator'
-import http from 'http'
 import https from 'https'
 
 
 
 const app = new Koa();
 
-// mongoConnect();
+mongoConnect();
 
 middlewares(app);
 
