@@ -2,6 +2,11 @@
 
 # blog-server
 
+[![Release V1.0](https://img.shields.io/badge/release-v1.0-blue.svg)](https://github.com/TJCollinZhang/blog-server)
+![license](https://img.shields.io/badge/license-MIT-brightgreen.svg)
+
+
+
 > 个人博客后端，前后端分离开发（[前端地址](https://github.com/TJCollinZhang/blog-front-end)），整体采用Koa2+mongo，koa-static静态映射支持所用图片上传后本地存储。
 
 技术栈如下：
