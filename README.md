@@ -1,5 +1,3 @@
-[TOC]
-
 # blog-server
 
 [![Release V1.0](https://img.shields.io/badge/release-v1.0-blue.svg)](https://github.com/TJCollinZhang/blog-server)
@@ -48,4 +46,6 @@ node start.js
 ## Thanks
 
 后端大量参考了naice大神的[博客后端](https://github.com/naihe138/naice-blog-koa)，特此感谢！
+
+
 
