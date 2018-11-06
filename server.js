@@ -20,9 +20,6 @@ const router = new Route(app, resolve(__dirname, './routers'));
 router.init();
 
 
-// https.createServer(app.callback()).listen(3001, () => {
-// 	console.log('blog-server Run！port at 3001')
-// });
 app.listen(config.APP.port, () => {
 	console.log(`blog-server Run！port at ${config.APP.port}`)
 })
