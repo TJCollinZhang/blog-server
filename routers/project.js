@@ -12,10 +12,10 @@ export class ProjectController {
 		try {
 			let {projectName, projectDesc, projectUrl, projectCode, projectIcon} = ctx.request.body
 			let res = await insertProject({projectName, projectDesc, projectUrl, projectCode, projectIcon})
-			resSuccess({ctx: ctx, message: '新增项目成功', result: res})
+			resSuccess({ctx: ctx, message: '项目保存成功', result: res})
 
 		} catch (e) {
-			resErr({ctx: ctx, message: "新增项目失败", err: e})
+			resErr({ctx: ctx, message: "项目保存失败", err: e})
 		}
 	}
 

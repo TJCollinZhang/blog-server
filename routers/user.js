@@ -15,18 +15,6 @@ import {resErr, resSuccess} from '../utils/resHandle'
 
 @controller(`${config.APP.root_path}/user`)
 export class userController {
-	// 添加评论
-	// @put('signin')
-	// @required({body: ['username', 'password']})
-	// async addUser (ctx, next) {
-	// 	const opts = ctx.request.body
-  //       try {
-  //           let article = await putComment(ctx, opts)
-	// 	    		resSuccess({ ctx, message: '添加评论成功'})
-  //       } catch (err) {
-  //           resErr({ ctx, message: '添加评论失败', err})
-  //       }
-	// }
 	// 登录
 	@post('login')
 	@required({body: ['username', 'password']})

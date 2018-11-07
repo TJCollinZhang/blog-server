@@ -15,6 +15,16 @@ const middlewares = (app) => {
 		console.log(`${ctx.method} ${ctx.url} - ${duration}ms`)
 	})
 	app.use(cors({
+		origin: (ctx) => {
+			let origin = ctx.request.headers.origin || '';
+			const allowedOrigins = ['https://blog.collinjs.site', 'file://'];
+			if (allowedOrigins.includes(origin) || origin.includes('localhost')) {
+				return true
+			} else {
+				return false
+			}
+
+		},
 		allowHeaders: 'Authorization, Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With',
 		credentials: true,
 		keepHeadersOnError: true
@@ -22,12 +32,10 @@ const middlewares = (app) => {
 	app.use(Interceptor)
 	app.use(helmet())
 	app.use(bodyParser({
-		jsoinLimit: '10mb',
+		jsonLimit: '10mb',
 		formLimit: '10mb',
 		textLimit: '10mb'
 	}))
-
-	console.log(path.resolve("."+'/upload'))
 
 	app.use(serve(path.resolve("."+'/upload'),{extensions: ['png','jpg']}));
 
