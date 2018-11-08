@@ -1,7 +1,6 @@
 # blog-server
 
 ![GitHub release](https://img.shields.io/github/release/TJCollinZhang/blog-server.svg)
-
 [![GitHub license](https://img.shields.io/github/license/TJCollinZhang/blog-server.svg)](https://github.com/TJCollinZhang/blog-server/blob/master/LICENSE)
 
 
