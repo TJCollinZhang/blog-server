@@ -19,9 +19,9 @@ const middlewares = (app) => {
 			let origin = ctx.request.headers.origin || '';
 			const allowedOrigins = ['https://blog.collinjs.site', 'file://'];
 			if (allowedOrigins.includes(origin) || origin.includes('localhost')) {
-				return true
+				return origin
 			} else {
-				return false
+				return null
 			}
 
 		},
