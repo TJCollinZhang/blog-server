@@ -17,7 +17,7 @@ const middlewares = (app) => {
 	app.use(cors({
 		origin: (ctx) => {
 			let origin = ctx.request.headers.origin || '';
-			const allowedOrigins = ['https://blog.collinjs.site', 'file://'];
+			const allowedOrigins = ['https://blog.collinjs.site', 'file://', 'https://collinjs.site'];
 			if (allowedOrigins.includes(origin) || origin.includes('localhost')) {
 				return origin
 			} else {
