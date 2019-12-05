@@ -33,6 +33,7 @@ export default class Route {
 
 			const routerPath = prefixPath + conf.path
 
+			// 由于在使用时增加了检测路径的中间件，需要解构 ...controller
 			this.router[conf.method](routerPath, ...controllers)
 		}
 
@@ -59,8 +60,8 @@ export default class Route {
 
 export const router = conf => (target, key, desc) => {
 	conf.path = normalizePath(conf.path)
-	console.log('conf', conf)
 
+	//由于前面的检测必要参数注入，这里的target[key]是
 	routersMap.set({
 		target: target,
 		...conf
@@ -106,16 +107,18 @@ export const required = rules => convert(async (ctx, next) => {
 
 	const passRules = R.forEachObjIndexed(
 		(value, key) => {
-			if (ctx.request.method === 'GET') {
-				errors = R.filter(i => !R.has(i, ctx.request[key]))(value)
-			} else {
-				try {
-					errors = R.filter(i => !R.has(i, ctx.request[key]))(value)
-				} catch (e) {
-					ctx.status = 400
-					ctx.body = e
-				}
-			}
+			errors = R.filter(i => !R.has(i, ctx.request[key]))(value)
+			console.log('val', value, 'key', key)
+			// if (ctx.request.method === 'GET') {
+			// 	errors = R.filter(i => !R.has(i, ctx.request[key]))(value)
+			// } else {
+			// 	try {
+			// 		errors = R.filter(i => !R.has(i, ctx.request[key]))(value)
+			// 	} catch (e) {
+			// 		ctx.status = 400
+			// 		ctx.body = e
+			// 	}
+			// }
 		}
 	)
 

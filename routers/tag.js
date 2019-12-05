@@ -34,6 +34,7 @@ export class TagController {
 	async delTag(ctx,next) {
 		try {
 			let tagId = ctx.query.tagId
+			console.log('delete',ctx.query)
 			if (tagId) {
 				let res = await deleteTag(tagId)
 				resSuccess({ctx: ctx, message: "删除标签成功", result: res})

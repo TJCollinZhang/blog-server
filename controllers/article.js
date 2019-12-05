@@ -49,12 +49,25 @@ export const getArticleById = async (articleId) => {
 	return await Article.aggregate(pipelineArr)
 }
 
-export const getArticleListByPage = async (page) => {
+export const getArticleListByPage = async (page, keywords) => {
 	// let res_limit = await Article.find()
+	const keywordsReg = new RegExp(keywords, 'i')
+	console.log('key', keywordsReg)
 	let pipelineArr = [
 		{
 			$sort: {
 				updatedAt: -1
+			}
+		},
+		{
+			$match: {
+				$or: [
+					{
+						title: {$regex: keywordsReg}
+					},{
+					abstract: {$regex: keywordsReg}
+					}
+				]
 			}
 		},
 		{

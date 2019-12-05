@@ -31,7 +31,8 @@ export class articleController {
 	async selectArticleListByPage(ctx, next) {
 		try {
 			let page = ctx.query.page || 0
-			let res = await getArticleListByPage(page)
+			let keywords = ctx.query.keywords || ''
+			let res = await getArticleListByPage(page, keywords)
 			return resSuccess({ctx: ctx, message: '获取文章列表成功', result: res})
 		} catch (e) {
 			resErr({ctx: ctx, message: '获取文章列表失败', err: e})
